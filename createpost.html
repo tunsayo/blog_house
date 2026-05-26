@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="fontawesome/css/all.css" />
+    <title>Create Blog</title>
+  </head>
+  <body>
+    <div class="overlay createoverlay" id="overlay"></div>
+    <header class="header-wrapper">
+      <div class="header-brand">
+        <span class="logo"><i class="fa-solid fa-igloo"></i></span>
+        <span>Blog House</span>
+      </div>
+
+      <div class="add-post">
+        <a href="index.html" class="addnews"><button>View Posts <i class="fa-solid fa-newspaper"></i></button></a>
+        <a href="index.html" class="news"><button><i class="fa-solid fa-newspaper"></i></button></a>
+      </div>
+    </header>
+
+    <section class="main-content create-main">
+      <form action="" class="form" id="form">
+        <input type="text" name="" id="image-url" placeholder="image url"/>
+        <img src="" id="preview-image" alt="image" width="100px" height="100px">
+        <input type="text" id="title" placeholder="title" />
+        <textarea name="" id="content" placeholder="contents"></textarea>
+        <button type="submit">Post Blog <i class="fa-solid fa-plus"></i></button>
+      </form>
+    </section>
+
+    <script src="createpost.js"></script>
+    <script src="https://kit.fontawesome.com/64bd4d313c.js" crossorigin="anonymous"></script>
+  </body>
+</html>

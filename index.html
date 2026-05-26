@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Blog House</title>
+  </head>
+  <body>
+    
+    <div class="overlay" id="overlay"></div>
+
+    <div class="sidebar-wrapper" id="sidebar-wrapper">
+      <div class="sidebar">
+        <input type="input" name="" id="select-image"/>
+        <img src="" id="preview-image" alt="image" width="100px" height="100px">
+        <input type="text" id="title" placeholder="title">
+        <textarea name="" id="body" placeholder="contents"></textarea>
+        <button id="update-btn">Edit Post <i class="fa-regular fa-pen-to-square"></i></button>
+      </div>
+    </div>
+
+    <main class="page-content" id="page-content">
+      <header class="header-wrapper">
+        <div class="header-brand">
+          <span class="logo"><i class="fa-solid fa-igloo"></i></span>
+          <span>Blog House</span>
+        </div>
+
+        <div class="search-wrapper">
+          <span class="fa-solid fa-search"></span>
+          <input type="text" placeholder="search blogs" id="search">
+        </div>
+
+        <div class="add-post">
+          <a href="createpost.html" class="createplus"><button>Create Post <i class="fa-solid fa-circle-plus"></i></button></a>
+          <a href="createpost.html" class="plus"><button><i class="fa-solid fa-circle-plus"></i></button></a>
+        </div>
+      </header>
+
+      <section class="main-content">
+        <div class="main-top">
+          <h2>Blogs</h2>
+          <select name="" id="sortblog">
+            <option value="">Sort By</option>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="a-z">A-Z</option>
+          </select>
+        </div>
+        <div class="blog-posts-wrapper" id="blog-posts">
+
+        </div>
+      </section>
+    </main>
+
+    <script src="index.js"></script>
+    <script src="https://kit.fontawesome.com/64bd4d313c.js" crossorigin="anonymous"></script>
+  </body>
+</html>
