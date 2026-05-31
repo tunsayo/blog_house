@@ -34,16 +34,24 @@ async function edit(id) {
   overlay.style.opacity = "1";
   pagecontent.classList.add("blur");
 
-  const response = await fetch(
+  try {
+    const response = await fetch(
     `https://6a10aacfd2a98570703707be.mockapi.io/posts/${id}`,
     {
       method: "GET",
     },
-  );
-  data = await response.json();
-  title.value = data.title;
-  content.value = data.body;
-  selectimage.value = data.image;
+    );
+    if (!response.ok) {
+      throw new Error(`problem occured while fetching data`);
+      return;
+    }
+    data = await response.json();
+    title.value = data.title;
+    content.value = data.body;
+    selectimage.value = data.image;
+  } catch (err) {
+    alert(err)
+  }
 }
 // -- end of side bar --
 
@@ -51,21 +59,21 @@ async function edit(id) {
 const updatebtn = document.getElementById("update-btn");
 
 updatebtn.addEventListener("click", async () => {
-  const response = await fetch(
-    `https://6a10aacfd2a98570703707be.mockapi.io/posts/${itemid}`,
-    {
-      method: "PUT",
-      body: JSON.stringify({
-        title: title.value,
-        body: content.value,
-        image: selectimage.value,
-      }),
-      headers: {
-        "Content-type": "application/json",
-      },
-    },
-  );
   try {
+    const response = await fetch(
+      `https://6a10aacfd2a98570703707be.mockapi.io/posts/${itemid}`,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          title: title.value,
+          body: content.value,
+          image: selectimage.value,
+        }),
+        headers: {
+          "Content-type": "application/json",
+        },
+      },
+    );
     if (!response.ok) {
       throw new Error(`problem occured while updating blog`);
       return;
@@ -80,10 +88,13 @@ updatebtn.addEventListener("click", async () => {
 
 // -- delete blog post --
 async function deleteblog(id) {
-  const response = await fetch(`https://6a10aacfd2a98570703707be.mockapi.io/posts/${id}`, {
-    method: "DELETE",
-  });
   try {
+    const response = await fetch(
+      `https://6a10aacfd2a98570703707be.mockapi.io/posts/${id}`,
+      {
+        method: "DELETE",
+      },
+    );
     if (!response.ok) {
       throw new Error(`problem occured while updating blog`);
       return;
@@ -101,11 +112,13 @@ async function deleteblog(id) {
 // -- fetching blog post --
 
 async function fetchblog() {
-  const response = await fetch(
-    "https://6a10aacfd2a98570703707be.mockapi.io/posts", {
-      method: "GET",
-    },);
   try {
+    const response = await fetch(
+      "https://6a10aacfd2a98570703707be.mockapi.io/posts",
+      {
+        method: "GET",
+      },
+    );
     if (!response.ok) {
       throw new Error(`problem occured while fetching data`);
       return;

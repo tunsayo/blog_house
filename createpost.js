@@ -18,21 +18,21 @@ form.addEventListener("submit", async (event) => {
     alert("provide the blog post");
     return;
   }
-  const response = await fetch(
-    "https://6a10aacfd2a98570703707be.mockapi.io/posts",
-    {
-      method: "POST",
-      body: JSON.stringify({
-        title: title.value,
-        body: content.value,
-        image: selectimage.value,
-      }),
-      headers: {
-        "Content-type": "application/json",
-      },
-    },
-  );
   try {
+    const response = await fetch(
+      "https://6a10aacfd2a98570703707be.mockapi.io/posts",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          title: title.value,
+          body: content.value,
+          image: selectimage.value,
+        }),
+        headers: {
+          "Content-type": "application/json",
+        },
+      },
+    );
     if (!response.ok) {
       throw new Error(`problem occured while posting blog`);
       return;
