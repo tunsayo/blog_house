@@ -7,16 +7,27 @@
     <title>Blog House</title>
   </head>
   <body>
-    
     <div class="overlay" id="overlay"></div>
+
+    <div class="loader" id="loader">
+      <div class="spinner" id="spinner"></div>
+    </div>
 
     <div class="sidebar-wrapper" id="sidebar-wrapper">
       <div class="sidebar">
-        <input type="input" name="" id="select-image"/>
-        <img src="" id="preview-image" alt="image" width="100px" height="100px">
-        <input type="text" id="title" placeholder="title">
+        <input type="input" name="" id="select-image" />
+        <img
+          src=""
+          id="preview-image"
+          alt="image"
+          width="100px"
+          height="100px"
+        />
+        <input type="text" id="title" placeholder="title" />
         <textarea name="" id="body" placeholder="contents"></textarea>
-        <button id="update-btn">Edit Post <i class="fa-regular fa-pen-to-square"></i></button>
+        <button id="update-btn">
+          Edit Post <i class="fa-regular fa-pen-to-square"></i>
+        </button>
       </div>
     </div>
 
@@ -29,12 +40,16 @@
 
         <div class="search-wrapper">
           <span class="fa-solid fa-search"></span>
-          <input type="text" placeholder="search blogs" id="search">
+          <input type="text" placeholder="search blogs" id="search" />
         </div>
 
         <div class="add-post">
-          <a href="createpost.html" class="createplus"><button>Create Post <i class="fa-solid fa-circle-plus"></i></button></a>
-          <a href="createpost.html" class="plus"><button><i class="fa-solid fa-circle-plus"></i></button></a>
+          <a href="createpost.html" class="createplus"
+            ><button>Create Post <i class="fa-solid fa-circle-plus"></i></button
+          ></a>
+          <a href="createpost.html" class="plus"
+            ><button><i class="fa-solid fa-circle-plus"></i></button
+          ></a>
         </div>
       </header>
 
@@ -55,6 +70,10 @@
     </main>
 
     <script src="index.js"></script>
-    <script src="https://kit.fontawesome.com/64bd4d313c.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/64bd4d313c.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

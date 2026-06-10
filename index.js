@@ -4,6 +4,8 @@ const content = document.getElementById("body");
 const selectimage = document.getElementById("select-image");
 const previewimage = document.getElementById("preview-image");
 
+const spin = document.getElementById("loader");
+
 // -- overlay blur --
 const sidebar = document.getElementById("sidebar-wrapper");
 const overlay = document.getElementById("overlay");
@@ -13,7 +15,6 @@ overlay.addEventListener("click", () => {
   sidebar.style.visibility = "hidden";
   overlay.style.visibility = "hidden";
   overlay.style.opacity = "0";
-  pagecontent.classList.remove("blur");
 });
 // -- end of overlay blur --
 
@@ -32,7 +33,6 @@ async function edit(id) {
   sidebar.style.visibility = "visible";
   overlay.style.visibility = "visible";
   overlay.style.opacity = "1";
-  pagecontent.classList.add("blur");
 
   try {
     const response = await fetch(
@@ -42,7 +42,7 @@ async function edit(id) {
     },
     );
     if (!response.ok) {
-      throw new Error(`problem occured while fetching data`);
+      throw new Error();
       return;
     }
     data = await response.json();
@@ -50,7 +50,6 @@ async function edit(id) {
     content.value = data.body;
     selectimage.value = data.image;
   } catch (err) {
-    alert(err)
   }
 }
 // -- end of side bar --
@@ -59,6 +58,23 @@ async function edit(id) {
 const updatebtn = document.getElementById("update-btn");
 
 updatebtn.addEventListener("click", async () => {
+  const result = await Swal.fire({
+    icon: "warning",
+    title: "Update Blog",
+    text: "This action cannot be undone..",
+    showCancelButton: true,
+    confirmButtonText: "Yes, Update",
+  });
+  if (!result.isConfirmed) {
+    return;
+  }
+  Swal.fire({
+    title: "Updating...",
+    allowOutsideClick: false,
+    didOpen: () => {
+      Swal.showLoading();
+    },
+  });
   try {
     const response = await fetch(
       `https://6a10aacfd2a98570703707be.mockapi.io/posts/${itemid}`,
@@ -75,19 +91,49 @@ updatebtn.addEventListener("click", async () => {
       },
     );
     if (!response.ok) {
-      throw new Error(`problem occured while updating blog`);
+      throw new Error();
       return;
     }
-    alert("blog post updated successfull!!")
-    window.location.reload();
+    Swal.close();
+    const ne = await Swal.fire({
+      icon: "success",
+      title: "Edit Blog",
+      text: "Blog updated successfully",
+      timer: "4000",
+    })
+    if (ne.isConfirmed) {
+      window.location.reload();
+    }
   } catch (err) {
-    alert(err);
+    Swal.fire({
+      icon: "error",
+      title: "Edit Blog",
+      text: "Failed to update blog",
+      timer: "4000",
+    });
   }
 })
 // -- end of update blog --
 
 // -- delete blog post --
 async function deleteblog(id) {
+  const result = await Swal.fire({
+    icon: "warning",
+    title: "Delete Blog",
+    text: "This action cannot be undone..",
+    showCancelButton: true,
+    confirmButtonText: "Yes, Delete",
+  });
+  if (!result.isConfirmed) {
+    return;
+  }
+  Swal.fire({
+    title: "Deleting...",
+    allowOutsideClick: false,
+    didOpen: () => {
+      Swal.showLoading();
+    }
+  })
   try {
     const response = await fetch(
       `https://6a10aacfd2a98570703707be.mockapi.io/posts/${id}`,
@@ -96,14 +142,26 @@ async function deleteblog(id) {
       },
     );
     if (!response.ok) {
-      throw new Error(`problem occured while updating blog`);
+      throw new Error();
       return;
     }
-    alert("blog post deleted successfull!!");
-    window.location.reload();
-    fetchblog();
+    Swal.close();
+    const ne = Swal.fire({
+      icon: "success",
+      title: "Delete Blog",
+      text: "Blog Deleted successfully",
+      timer: "4000",
+    });
+    if (ne.isConfirmed) {
+      fetchblog();
+    }
   } catch (err) {
-    alert(err);
+    Swal.fire({
+      icon: "error",
+      title: "Delete Blog",
+      text: "Failed to delete blog",
+      timer: "4000",
+    });
   }
   
 }
@@ -113,6 +171,7 @@ async function deleteblog(id) {
 
 async function fetchblog() {
   try {
+    spin.style.display = "flex"
     const response = await fetch(
       "https://6a10aacfd2a98570703707be.mockapi.io/posts",
       {
@@ -120,7 +179,7 @@ async function fetchblog() {
       },
     );
     if (!response.ok) {
-      throw new Error(`problem occured while fetching data`);
+      throw new Error();
       return;
     }
     data = await response.json();
@@ -128,7 +187,14 @@ async function fetchblog() {
     let sortdata = data.sort((a, b) => Number(b.id) - Number(a.id));
     displayblog(sortdata)
   } catch (err) {
-    alert(err);
+    Swal.fire({
+      icon: "error",
+      title: "Fetch Blog",
+      text: "Check Your internet connection",
+      timer: "4000",
+    });
+  } finally {
+    spin.style.display = "none";
   }
 }
 fetchblog();
@@ -137,6 +203,13 @@ fetchblog();
 // --  display blog --
 const blogposts = document.getElementById("blog-posts");
 function displayblog(items) {
+  if (items.length === 0) {
+    blogposts.innerHTML = `
+    <div class="empty-state">
+      <h2>No posts found/available..</h2>
+    </div>`
+    return;
+  }
   blogposts.innerHTML = items.map((item) => `
   <div class="blog-posts">
     <img src="${item.image}" alt="${item.title} id="hovimg"/>
