@@ -6,6 +6,7 @@ const previewimage = document.getElementById("preview-image");
 
 const spin = document.getElementById("loader");
 
+
 // -- overlay blur --
 const sidebar = document.getElementById("sidebar-wrapper");
 const overlay = document.getElementById("overlay");
@@ -193,6 +194,7 @@ async function fetchblog() {
       text: "Check Your internet connection",
       timer: "4000",
     });
+    emptystate();
   } finally {
     spin.style.display = "none";
   }
@@ -204,10 +206,7 @@ fetchblog();
 const blogposts = document.getElementById("blog-posts");
 function displayblog(items) {
   if (items.length === 0) {
-    blogposts.innerHTML = `
-    <div class="empty-state">
-      <h2>No posts found/available..</h2>
-    </div>`
+    emptystate()
     return;
   }
   blogposts.innerHTML = items.map((item) => `
@@ -227,6 +226,14 @@ function displayblog(items) {
     )
     .join("");
 }
+// -- empty state --
+function emptystate() {
+  blogposts.innerHTML = `
+    <div class="empty-state">
+      <h2>No posts found/available..</h2>
+    </div>`;
+}
+// -- end of empty state
 
 // -- search blog post --
 const search = document.getElementById("search");

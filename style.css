@@ -31,8 +31,8 @@
 .spinner{
   width: 60px;
   height: 60px;
-  border: 7px solid #ffc400;
-  border-left: 7px solid #fff;
+  border: 8px solid #ffc400;
+  border-left: 8px solid #fff;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
